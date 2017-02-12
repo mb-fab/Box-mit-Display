@@ -3,25 +3,38 @@ include <global.scad>;
 
 module box()
 {
-    // all measures im mm
-    x = 100;
-    y = 80;
-    z = 50;
-
-    // display measures
-    d_x = 80;
-    d_y = 40;
-
     difference()
     {
-        // a block
-        cube([x, y, z]);
+        // begin with a block
+        cube([
+            box_x,
+            box_y,
+            box_z
+            ]);
+
         // remove the inside of the block
-        translate([material_width, material_width, material_width])
-            cube([x-2*material_width, y-2*material_width, z-2*material_width]);
+        translate([
+            material_width,
+            material_width,
+            material_width
+            ])
+            cube([
+                box_x - 2*material_width,
+                box_y - 2*material_width,
+                box_z - 2*material_width
+                ]);
+
         // make a window for the dislay
-        translate([(x-d_x)/2, (y-d_y)/2, z-material_width])
-            cube([d_x, d_y, material_width]);
+        translate([
+            (box_x - display_x) / 2,
+            (box_y - display_y) / 2,
+            box_z-material_width
+            ])
+            cube([
+                display_x,
+                display_y,
+                material_width
+                ]);
     }
 }
 

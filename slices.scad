@@ -4,21 +4,21 @@ use <box.scad>;
 
 module slice(i)
 {
-    intersection()
-    {
-        box();
-        translate([0, 0, i*material_width])
-            cube([100, 100, material_width]);
-    }
+    projection(cut=true)
+        translate([0, 0, -i*material_width])
+            box();
 }
 
-module slices(n)
+module slices()
 {
+    // number of slices
+    n = ceil(box_y / material_width);
+
     for (i = [0 : n])
     {
-        translate([i*120, 0, -i*material_width])
+        translate([i*(box_x+1), 0])
             slice(i);
     }
 }
 
-projection() slices(9);
+slices();
