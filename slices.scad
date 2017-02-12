@@ -16,7 +16,7 @@ module slices()
 
     for (i = [0 : n])
     {
-        translate([i*(box_x+1), 0])
+        translate([i*(total_x+1), 0])
             slice(i);
     }
 }

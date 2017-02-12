@@ -1,7 +1,8 @@
 
 include <global.scad>;
+use <screw_extension.scad>;
 
-module box()
+module box_with_window()
 {
     difference()
     {
@@ -35,6 +36,59 @@ module box()
                 display_y,
                 material_width
                 ]);
+    }
+}
+
+module box()
+{
+    difference()
+    {
+        union()
+        {
+            box_with_window();
+
+            // add screw hole extensions
+            screw_extension();
+
+            translate([
+                box_x,
+                0
+                ])
+                screw_extension();
+
+            translate([
+                box_x,
+                box_y
+                ])
+                screw_extension();
+
+            translate([
+                0,
+                box_y
+                ])
+                screw_extension();
+        }
+
+        // drill holes in the screw extensions
+        screw_hole();
+
+        translate([
+            box_x,
+            0
+            ])
+            screw_hole();
+
+        translate([
+            box_x,
+            box_y
+            ])
+            screw_hole();
+
+        translate([
+            0,
+            box_y
+            ])
+            screw_hole();
     }
 }
 
